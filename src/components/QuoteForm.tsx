@@ -46,6 +46,11 @@ export default function QuoteForm() {
     setErrors(nextErrors);
     if (Object.keys(nextErrors).length > 0) return;
 
+    if (!supabase) {
+      setStatus('error');
+      return;
+    }
+
     setStatus('submitting');
     const { error } = await supabase.from('quote_requests').insert({
       name: values.name.trim(),
